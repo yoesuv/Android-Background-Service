@@ -1,6 +1,7 @@
 # Android Background Service #
 
-How to use background service in Android.
+How to use background service in android with Work Manager.  
+Show notification in every 15 minutes (periodically).  
 Download apk [here](https://www.dropbox.com/s/vkcjib3f0xd06rk)
 
 #### Screenshot ####
