@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val notificationWorker = PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES)
         .build()
+    private val listWorkState = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupButton()
+        WorkManager.getInstance(this).getWorkInfosForUniqueWorkLiveData(JOB_NOTIFICATION).observe(this, { workInfo ->
+            listWorkState.clear()
+            if (workInfo.isNotEmpty()) {
+                workInfo?.forEach {
+                    listWorkState.add(it.state.name)
+                }
+            } else {
+                listWorkState.add("-")
+            }
+            binding.tvWorkStatus.text = listWorkState.toString()
+        })
     }
 
     private fun setupButton() {

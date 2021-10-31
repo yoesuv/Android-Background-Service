@@ -14,6 +14,26 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvWorkStatus"
+        android:text="@string/work_manager_status" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWorkStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnStart"
+        android:layout_marginBottom="@dimen/button_margin"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="CANCELED"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStart"
         android:layout_width="match_parent"
