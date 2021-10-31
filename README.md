@@ -1,6 +1,11 @@
 # Android Background Service #
 
-How to use background service in Android
+How to use background service in Android.
+Download apk [here](https://www.dropbox.com/s/vkcjib3f0xd06rk)
+
+#### Screenshot ####
+| ![](https://i.imgur.com/vnF51H3.jpg) | ![](https://i.imgur.com/09IevBR.jpg) | ![](https://i.imgur.com/q75ORM3.jpg) |
+| :---: | :---: | :---: |
 
 #### Reference ####
 - [Notification](https://developer.android.com/guide/topics/ui/notifiers/notifications)
