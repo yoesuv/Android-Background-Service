@@ -2,7 +2,7 @@ package com.yoesuv.androidbackgroundservice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -28,15 +28,11 @@ class MainActivity : AppCompatActivity() {
             startNotificationJob()
         }
         binding.btnStop.setOnClickListener {
-            Log.d("result_debug", "MainActivity # STOP")
+            stopNotificationJob()
         }
     }
 
     private fun startNotificationJob() {
-        Log.d("result_debug", "MainActivity # start notification job")
-        WorkManager.getInstance(this).getWorkInfosForUniqueWorkLiveData(JOB_NOTIFICATION).observe(this, { workInfo ->
-            Log.d("result_debug", "MainActivity # $workInfo")
-        })
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             JOB_NOTIFICATION,
             ExistingPeriodicWorkPolicy.KEEP,
@@ -44,6 +40,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopNotificationJob() {
-        WorkManager.getInstance(this).cancelUniqueWork(JOB_NOTIFICATION)
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.dialog_message)
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
+            WorkManager.getInstance(this@MainActivity).cancelUniqueWork(JOB_NOTIFICATION)
+        }
+        builder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.create()
+        builder.show()
     }
 }
