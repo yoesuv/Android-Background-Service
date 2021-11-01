@@ -73,9 +73,8 @@ class AlarmActivity: AppCompatActivity() {
 
     private fun setupAlarm(hour: Int, minute: Int) {
         val calendar = Calendar.getInstance()
-        //calendar.set(Calendar.HOUR_OF_DAY, hour)
-        //calendar.set(Calendar.MINUTE, minute)
-        calendar.add(Calendar.SECOND, 30)
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, minute)
 
         val intent = Intent(this, MyAlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
