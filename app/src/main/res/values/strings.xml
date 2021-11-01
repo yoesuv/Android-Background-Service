@@ -6,6 +6,7 @@
     <string name="button_start">START</string>
     <string name="button_stop">STOP</string>
     <string name="button_alarm_manager">Alarm Manager</string>
+    <string name="button_set_alarm_time">Set Alarm Time</string>
 
     <string name="dialog_message">Stop Background Process?</string>
 </resources>
