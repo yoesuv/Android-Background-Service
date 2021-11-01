@@ -2,8 +2,11 @@
     <string name="app_name">Android Background Service</string>
 
     <string name="work_manager_status">Work Manager Status :</string>
+
     <string name="button_start">START</string>
     <string name="button_stop">STOP</string>
+    <string name="button_alarm_manager">Alarm Manager</string>
+    <string name="button_set_alarm_time">Set Alarm Time</string>
 
     <string name="dialog_message">Stop Background Process?</string>
 </resources>

@@ -42,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnStop.setOnClickListener {
             stopNotificationJob()
         }
+        binding.btnAlarmManager.setOnClickListener {
+            startActivity(AlarmActivity.getInstance(this))
+        }
     }
 
     private fun startNotificationJob() {
