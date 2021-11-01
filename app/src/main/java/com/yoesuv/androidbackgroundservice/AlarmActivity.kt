@@ -5,11 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.yoesuv.androidbackgroundservice.databinding.ActivityAlarmBinding
+import java.util.*
 
 class AlarmActivity: AppCompatActivity() {
 
     companion object {
+        const val TIME_PICKER_TAG = "time_picker_tag"
         fun getInstance(context: Context): Intent {
             return Intent(context, AlarmActivity::class.java)
         }
@@ -40,7 +44,23 @@ class AlarmActivity: AppCompatActivity() {
 
     private fun setupButton() {
         binding.btnSetAlarmTime.setOnClickListener {
+            showTimePicker()
+        }
+    }
 
+    private fun showTimePicker() {
+        val calendar = Calendar.getInstance()
+        val picker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setHour(calendar.get(Calendar.HOUR))
+            .setMinute(calendar.get(Calendar.MINUTE))
+            .setTitleText(R.string.button_set_alarm_time)
+            .build()
+        picker.show(supportFragmentManager, TIME_PICKER_TAG)
+        picker.addOnPositiveButtonClickListener {
+            val newHour = picker.hour
+            val newMinute = picker.minute
+            binding.tvAlarmTime.text = "${newHour.addZero()}:${newMinute.addZero()}"
         }
     }
 
