@@ -7,6 +7,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.yoesuv.androidbackgroundservice.databinding.ActivityAlarmBinding
@@ -24,6 +27,7 @@ class AlarmActivity: AppCompatActivity() {
     private lateinit var binding: ActivityAlarmBinding
 
     private lateinit var alarmManager: AlarmManager
+    val dataStore: DataStore<Preferences> by preferencesDataStore( name = STORE_NAME)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

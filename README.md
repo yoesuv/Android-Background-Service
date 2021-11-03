@@ -12,6 +12,7 @@ Download apk [here](https://www.dropbox.com/s/7pf38mm0kd92yx2)
 
 #### Reference ####
 - [Alarm Manager](https://developer.android.com/training/scheduling/alarms)
+- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
 - [Notification](https://developer.android.com/guide/topics/ui/notifiers/notifications)
 - [Stack Overflow](https://stackoverflow.com/a/7960057)
 - [View Binding](https://developer.android.com/topic/libraries/view-binding)
