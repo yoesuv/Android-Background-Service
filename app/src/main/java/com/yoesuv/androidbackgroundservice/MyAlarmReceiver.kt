@@ -7,6 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.yoesuv.androidbackgroundservice.prefs.StoreAlarm
+import com.yoesuv.androidbackgroundservice.prefs.appStore
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 
 class MyAlarmReceiver : BroadcastReceiver() {
 
@@ -27,5 +31,16 @@ class MyAlarmReceiver : BroadcastReceiver() {
         }
 
         notificationManager.notify(0, notificationBuilder.build())
+        runBlocking {
+            resetAlarm(context)
+        }
     }
+
+    private suspend fun resetAlarm(context: Context?) = coroutineScope {
+        context?.appStore?.let { store ->
+            val storeAlarm = StoreAlarm(store)
+            storeAlarm.removeAlarm()
+        }
+    }
+
 }

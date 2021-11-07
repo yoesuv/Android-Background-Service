@@ -2,6 +2,7 @@
     <string name="app_name">Android Background Service</string>
 
     <string name="work_manager_status">Work Manager Status :</string>
+    <string name="colon">:</string>
 
     <string name="button_start">START</string>
     <string name="button_stop">STOP</string>
