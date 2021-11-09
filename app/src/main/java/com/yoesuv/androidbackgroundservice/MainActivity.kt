@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val notificationWorker = PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES)
+        .setInitialDelay(15, TimeUnit.MINUTES)
         .build()
     private val listWorkState = mutableListOf<String>()
 
