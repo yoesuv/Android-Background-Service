@@ -7,9 +7,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.asLiveData
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.yoesuv.androidbackgroundservice.databinding.ActivityAlarmBinding
+import com.yoesuv.androidbackgroundservice.prefs.StoreAlarm
+import com.yoesuv.androidbackgroundservice.prefs.appStore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class AlarmActivity: AppCompatActivity() {
@@ -24,6 +30,7 @@ class AlarmActivity: AppCompatActivity() {
     private lateinit var binding: ActivityAlarmBinding
 
     private lateinit var alarmManager: AlarmManager
+    private lateinit var storeAlarm: StoreAlarm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +38,11 @@ class AlarmActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        storeAlarm = StoreAlarm(appStore)
 
         setupToolbar()
         setupButton()
+        observeData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -67,8 +76,16 @@ class AlarmActivity: AppCompatActivity() {
             val newHour = picker.hour
             val newMinute = picker.minute
             setupAlarm(newHour, newMinute)
-            binding.tvAlarmTime.text = "${newHour.addZero()}:${newMinute.addZero()}"
         }
+    }
+
+    private fun observeData() {
+        storeAlarm.alarmHour.asLiveData().observe(this, {
+            binding.tvAlarmTimeHour.text = it.addZero()
+        })
+        storeAlarm.alarmMinute.asLiveData().observe(this, {
+            binding.tvAlarmTimeMinute.text = it.addZero()
+        })
     }
 
     private fun setupAlarm(hour: Int, minute: Int) {
@@ -79,6 +96,12 @@ class AlarmActivity: AppCompatActivity() {
         val intent = Intent(this, MyAlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                storeAlarm.setAlarm(hour, minute)
+            }
+        }
     }
 
 }

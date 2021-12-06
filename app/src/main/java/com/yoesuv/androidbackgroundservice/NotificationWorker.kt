@@ -18,8 +18,8 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) : Wor
 
         val notificationBuilder = NotificationCompat.Builder(mContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification_small)
-            .setContentTitle("Background Service")
-            .setContentText("This is notification from background service")
+            .setContentTitle(mContext.getString(R.string.push_notification_background_service_title))
+            .setContentText(mContext.getString(R.string.push_notification_background_service_text))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
