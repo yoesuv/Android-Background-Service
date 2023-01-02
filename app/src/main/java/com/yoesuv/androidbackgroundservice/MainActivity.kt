@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.yoesuv.androidbackgroundservice.data.JOB_NOTIFICATION
 import com.yoesuv.androidbackgroundservice.databinding.ActivityMainBinding
 import java.util.concurrent.TimeUnit
 

@@ -4,16 +4,18 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.yoesuv.androidbackgroundservice.data.CHANNEL_ID
 
 class NotificationWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
 
     private val mContext = context
 
     override fun doWork(): Result {
-
+        Log.d("result_debug", "NotificationWorker # do work notif user")
         val notificationManager: NotificationManager = mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val notificationBuilder = NotificationCompat.Builder(mContext, CHANNEL_ID)

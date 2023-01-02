@@ -1,4 +1,6 @@
-package com.yoesuv.androidbackgroundservice
+package com.yoesuv.androidbackgroundservice.utils
+
+import android.os.Build
 
 fun Int?.addZero(): String {
     if (this == null) {
@@ -10,4 +12,8 @@ fun Int?.addZero(): String {
             return "$this"
         }
     }
+}
+
+fun isTiramisu(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 }

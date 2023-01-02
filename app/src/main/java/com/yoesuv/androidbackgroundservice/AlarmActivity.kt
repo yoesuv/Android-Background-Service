@@ -13,6 +13,7 @@ import com.google.android.material.timepicker.TimeFormat
 import com.yoesuv.androidbackgroundservice.databinding.ActivityAlarmBinding
 import com.yoesuv.androidbackgroundservice.prefs.StoreAlarm
 import com.yoesuv.androidbackgroundservice.prefs.appStore
+import com.yoesuv.androidbackgroundservice.utils.addZero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext

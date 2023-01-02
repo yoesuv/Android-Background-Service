@@ -1,4 +1,6 @@
-package com.yoesuv.androidbackgroundservice
+package com.yoesuv.androidbackgroundservice.data
+
+import com.yoesuv.androidbackgroundservice.BuildConfig
 
 const val JOB_NOTIFICATION = "job_notification"
 const val CHANNEL_ID = BuildConfig.APPLICATION_ID + "_channel"
