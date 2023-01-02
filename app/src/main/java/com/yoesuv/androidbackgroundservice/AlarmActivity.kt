@@ -47,7 +47,7 @@ class AlarmActivity: AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -80,12 +80,12 @@ class AlarmActivity: AppCompatActivity() {
     }
 
     private fun observeData() {
-        storeAlarm.alarmHour.asLiveData().observe(this, {
+        storeAlarm.alarmHour.asLiveData().observe(this) {
             binding.tvAlarmTimeHour.text = it.addZero()
-        })
-        storeAlarm.alarmMinute.asLiveData().observe(this, {
+        }
+        storeAlarm.alarmMinute.asLiveData().observe(this) {
             binding.tvAlarmTimeMinute.text = it.addZero()
-        })
+        }
     }
 
     private fun setupAlarm(hour: Int, minute: Int) {
