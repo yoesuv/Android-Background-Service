@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     // permission
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-        logDebug("MainActivity # request permission is $isGranted")
+        if (!isGranted) {
+            showDialogNotificationDenied()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,6 +91,16 @@ class MainActivity : AppCompatActivity() {
                 requestPermissionLauncher.launch(PERM_NOTIFICATION)
             }
         }
+    }
+
+    private fun showDialogNotificationDenied() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.dialog_push_notification_denied)
+        builder.setPositiveButton(android.R.string.ok) { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.create()
+        builder.show()
     }
 
 }
