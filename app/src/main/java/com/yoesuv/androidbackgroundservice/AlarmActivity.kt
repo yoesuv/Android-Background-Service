@@ -4,19 +4,15 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.asLiveData
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.yoesuv.androidbackgroundservice.databinding.ActivityAlarmBinding
-import com.yoesuv.androidbackgroundservice.prefs.StoreAlarm
-import com.yoesuv.androidbackgroundservice.prefs.appStore
+import com.yoesuv.androidbackgroundservice.prefs.PrefAlarm
 import com.yoesuv.androidbackgroundservice.utils.addZero
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import java.util.*
 
 class AlarmActivity: AppCompatActivity() {
@@ -31,7 +27,6 @@ class AlarmActivity: AppCompatActivity() {
     private lateinit var binding: ActivityAlarmBinding
 
     private lateinit var alarmManager: AlarmManager
-    private lateinit var storeAlarm: StoreAlarm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +34,10 @@ class AlarmActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        storeAlarm = StoreAlarm(appStore)
 
         setupToolbar()
         setupButton()
-        observeData()
+        showDataAlarm()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,13 +74,9 @@ class AlarmActivity: AppCompatActivity() {
         }
     }
 
-    private fun observeData() {
-        storeAlarm.alarmHour.asLiveData().observe(this) {
-            binding.tvAlarmTimeHour.text = it.addZero()
-        }
-        storeAlarm.alarmMinute.asLiveData().observe(this) {
-            binding.tvAlarmTimeMinute.text = it.addZero()
-        }
+    private fun showDataAlarm() {
+        binding.tvAlarmTimeHour.text = PrefAlarm.getHour().addZero()
+        binding.tvAlarmTimeMinute.text = PrefAlarm.getMinute().addZero()
     }
 
     private fun setupAlarm(hour: Int, minute: Int) {
@@ -94,15 +84,18 @@ class AlarmActivity: AppCompatActivity() {
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)
 
+        var flags = PendingIntent.FLAG_UPDATE_CURRENT
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        }
+
         val intent = Intent(this, MyAlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, flags)
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
 
-        runBlocking {
-            withContext(Dispatchers.IO) {
-                storeAlarm.setAlarm(hour, minute)
-            }
-        }
+        PrefAlarm.setHour(hour)
+        PrefAlarm.setMinute(minute)
+        showDataAlarm()
     }
 
 }
