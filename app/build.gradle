@@ -37,6 +37,14 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    // https://stackoverflow.com/a/73948648/3559183
+    configurations {
+        all {
+            exclude group: 'androidx.lifecycle', module: 'lifecycle-runtime-ktx'
+            exclude group: 'androidx.lifecycle', module: 'lifecycle-viewmodel-ktx'
+        }
+    }
 }
 
 dependencies {
@@ -52,5 +60,6 @@ dependencies {
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'androidx.datastore:datastore-preferences:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
 
 }
