@@ -1,7 +1,7 @@
 package com.yoesuv.androidbackgroundservice
 
 import android.app.Application
-import com.yoesuv.androidbackgroundservice.prefs.AppPrefHelper
+import com.yoesuv.androidbackgroundservice.prefs.PrefsHelper
 
 class App: Application() {
 
@@ -9,7 +9,7 @@ class App: Application() {
         super.onCreate()
 
         // init prefs helper
-        AppPrefHelper.Builder()
+        PrefsHelper.Builder()
             .setContext(this)
             .setPrefsName(packageName)
             .setUseDefaultSharedPreference(true)

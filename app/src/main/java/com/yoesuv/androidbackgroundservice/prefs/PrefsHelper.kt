@@ -6,7 +6,7 @@ import android.content.ContextWrapper
 import android.text.TextUtils
 import kotlin.RuntimeException
 
-object AppPrefHelper {
+object PrefsHelper {
 
     private const val DEFAULT_SUFFIX = "_preferences"
     private lateinit var mPrefs: SharedPreferences
@@ -27,7 +27,7 @@ object AppPrefHelper {
     }
     // ===== end preferences int =====
 
-    fun remove(key: String) {
+    fun remove(key: String?) {
         val editor = mPrefs.edit()
         editor.remove(key)
         editor.apply()
