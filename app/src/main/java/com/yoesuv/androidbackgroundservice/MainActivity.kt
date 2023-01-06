@@ -24,11 +24,12 @@ class MainActivity : AppCompatActivity() {
     private val listWorkState = mutableListOf<String>()
 
     // permission
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-        if (!isGranted) {
-            showDialogNotificationDenied()
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (!isGranted) {
+                showDialogNotificationDenied()
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +39,18 @@ class MainActivity : AppCompatActivity() {
         setupButton()
         checkPermissionNotification()
 
-        WorkManager.getInstance(this).getWorkInfosForUniqueWorkLiveData(JOB_NOTIFICATION).observe(this) { workInfo ->
-            listWorkState.clear()
-            if (workInfo.isNotEmpty()) {
-                workInfo?.forEach {
-                    listWorkState.add(it.state.name)
+        WorkManager.getInstance(this)
+            .getWorkInfosForUniqueWorkLiveData(JOB_NOTIFICATION).observe(this) { workInfo ->
+                listWorkState.clear()
+                if (workInfo.isNotEmpty()) {
+                    workInfo?.forEach {
+                        listWorkState.add(it.state.name)
+                    }
+                } else {
+                    listWorkState.add("-")
                 }
-            } else {
-                listWorkState.add("-")
+                binding.tvWorkStatus.text = listWorkState.toString()
             }
-            binding.tvWorkStatus.text = listWorkState.toString()
-        }
     }
 
     private fun setupButton() {
@@ -67,7 +69,8 @@ class MainActivity : AppCompatActivity() {
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             JOB_NOTIFICATION,
             ExistingPeriodicWorkPolicy.KEEP,
-            notificationWorker)
+            notificationWorker
+        )
     }
 
     private fun stopNotificationJob() {
