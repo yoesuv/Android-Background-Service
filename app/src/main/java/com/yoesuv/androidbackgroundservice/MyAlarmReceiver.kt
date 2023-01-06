@@ -28,7 +28,9 @@ class MyAlarmReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        notificationManager.notify(0, notificationBuilder.build())
+        if (PrefAlarm.getHour() != 0) {
+            notificationManager.notify(0, notificationBuilder.build())
+        }
         PrefAlarm.remove()
     }
 
