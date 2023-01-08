@@ -10,6 +10,7 @@
     <string name="button_set_alarm_time">Set Alarm Time</string>
 
     <string name="dialog_message">Stop Background Process?</string>
+    <string name="dialog_push_notification_denied">Notification did not appear if permisssion denied</string>
 
     <string name="push_notification_background_service_title">Background Service</string>
     <string name="push_notification_background_service_text">This is notification from background service</string>

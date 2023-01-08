@@ -7,12 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.yoesuv.androidbackgroundservice.prefs.StoreAlarm
-import com.yoesuv.androidbackgroundservice.prefs.appStore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import com.yoesuv.androidbackgroundservice.data.CHANNEL_ALARM_ID
+import com.yoesuv.androidbackgroundservice.prefs.PrefAlarm
 
 class MyAlarmReceiver : BroadcastReceiver() {
 
@@ -32,19 +28,10 @@ class MyAlarmReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        notificationManager.notify(0, notificationBuilder.build())
-        runBlocking {
-            withContext(Dispatchers.IO) {
-                resetAlarm(context)
-            }
+        if (PrefAlarm.getHour() != 0) {
+            notificationManager.notify(0, notificationBuilder.build())
         }
-    }
-
-    private suspend fun resetAlarm(context: Context?) = coroutineScope {
-        context?.appStore?.let { store ->
-            val storeAlarm = StoreAlarm(store)
-            storeAlarm.removeAlarm()
-        }
+        PrefAlarm.remove()
     }
 
 }
