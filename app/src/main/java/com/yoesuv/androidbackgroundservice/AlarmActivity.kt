@@ -59,10 +59,10 @@ class AlarmActivity: AppCompatActivity() {
     }
 
     private fun showTimePicker() {
-        val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance(Locale.getDefault())
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(calendar.get(Calendar.HOUR))
+            .setHour(calendar.get(Calendar.HOUR_OF_DAY))
             .setMinute(calendar.get(Calendar.MINUTE))
             .setTitleText(R.string.button_set_alarm_time)
             .build()
