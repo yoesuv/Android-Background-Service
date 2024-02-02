@@ -5,13 +5,14 @@ plugins {
 
 android {
     compileSdk 33
+    namespace "com.yoesuv.androidbackgroundservice"
 
     defaultConfig {
         applicationId "com.yoesuv.androidbackgroundservice"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
-        versionName "1.2.0"
+        versionName "1.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "(" + versionName + ")")
@@ -36,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
     // https://stackoverflow.com/a/73948648/3559183
