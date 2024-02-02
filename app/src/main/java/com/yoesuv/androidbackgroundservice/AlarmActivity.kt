@@ -65,6 +65,7 @@ class AlarmActivity: AppCompatActivity() {
             .setHour(calendar.get(Calendar.HOUR_OF_DAY))
             .setMinute(calendar.get(Calendar.MINUTE))
             .setTitleText(R.string.button_set_alarm_time)
+            .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
             .build()
         picker.show(supportFragmentManager, TIME_PICKER_TAG)
         picker.addOnPositiveButtonClickListener {
