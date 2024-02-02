@@ -13,6 +13,20 @@ import com.yoesuv.androidbackgroundservice.prefs.PrefAlarm
 class MyAlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        when (intent?.action) {
+            Intent.ACTION_DATE_CHANGED -> {
+                // to do when date changed
+            }
+            Intent.ACTION_BOOT_COMPLETED -> {
+                // to do when boot
+            }
+            else -> {
+                setupNotification(context)
+            }
+        }
+    }
+
+    private fun setupNotification(context: Context?) {
         val notificationManager: NotificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ALARM_ID)
