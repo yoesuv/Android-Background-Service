@@ -55,7 +55,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupButton() {
         binding.btnStart.setOnClickListener {
-            startNotificationJob()
+            if (isTiramisu()) {
+                val check = checkPermission(PERM_NOTIFICATION)
+                if (check) {
+                    startNotificationJob()
+                } else {
+                    requestPermissionLauncher.launch(PERM_NOTIFICATION)
+                }
+            } else {
+                startNotificationJob()
+            }
         }
         binding.btnStop.setOnClickListener {
             stopNotificationJob()
