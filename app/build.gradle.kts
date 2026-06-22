@@ -1,26 +1,32 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 
 android {
     namespace = "com.yoesuv.androidbackgroundservice"
-    compileSdk = 34
+    compileSdk {
+        version =
+            release(36) {
+                minorApiLevel = 1
+            }
+    }
 
     defaultConfig {
         applicationId = "com.yoesuv.androidbackgroundservice"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
-        versionName = "1.2.2"
+        versionName = "1.2.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        setProperty("archivesBaseName", "$applicationId-v$versionCode($versionName)")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -28,12 +34,26 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            val appId = variant.applicationId.get()
+            val versionCode = output.versionCode.get()
+            val versionName = output.versionName.get()
+            output.outputFileName.set("$appId-v$versionCode($versionName).apk")
+        }
     }
 }
 

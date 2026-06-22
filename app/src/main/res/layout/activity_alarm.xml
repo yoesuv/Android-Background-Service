@@ -1,62 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@color/purple_500"
+    android:fitsSystemWindows="true">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSetAlarmTime"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guideline"
-        android:layout_marginHorizontal="@dimen/button_margin"
-        android:paddingVertical="@dimen/button_padding_vertical"
-        android:text="@string/button_set_alarm_time"
-        android:textSize="@dimen/button_text_size"/>
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/button_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvAlarmTimeHour"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_alarm_size"
-            android:textStyle="bold"
-            tools:text="21" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSetAlarmTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/button_margin"
+            android:paddingVertical="@dimen/button_padding_vertical"
+            android:text="@string/button_set_alarm_time"
+            android:textSize="@dimen/button_text_size"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_alarm_size"
-            android:textStyle="bold"
-            android:text="@string/colon" />
+            android:layout_marginTop="@dimen/button_margin"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvAlarmTimeMinute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_alarm_size"
-            android:textStyle="bold"
-            tools:text="45" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAlarmTimeHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_alarm_size"
+                android:textStyle="bold"
+                tools:text="21" />
 
-    </LinearLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/colon"
+                android:textSize="@dimen/text_alarm_size"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAlarmTimeMinute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_alarm_size"
+                android:textStyle="bold"
+                tools:text="45" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

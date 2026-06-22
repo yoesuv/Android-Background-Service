@@ -1,9 +1,9 @@
 package com.yoesuv.androidbackgroundservice
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -16,11 +16,11 @@ import com.yoesuv.androidbackgroundservice.utils.logDebug
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
-    private val notificationWorker = PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES)
-        .setInitialDelay(15, TimeUnit.MINUTES)
-        .build()
+    private val notificationWorker =
+        PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES)
+            .setInitialDelay(15, TimeUnit.MINUTES)
+            .build()
     private val listWorkState = mutableListOf<String>()
 
     // permission
@@ -39,8 +39,10 @@ class MainActivity : AppCompatActivity() {
         setupButton()
         checkPermissionNotification()
 
-        WorkManager.getInstance(this)
-            .getWorkInfosForUniqueWorkLiveData(JOB_NOTIFICATION).observe(this) { workInfo ->
+        WorkManager
+            .getInstance(this)
+            .getWorkInfosForUniqueWorkLiveData(JOB_NOTIFICATION)
+            .observe(this) { workInfo ->
                 listWorkState.clear()
                 if (workInfo.isNotEmpty()) {
                     workInfo?.forEach {
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             JOB_NOTIFICATION,
             ExistingPeriodicWorkPolicy.KEEP,
-            notificationWorker
+            notificationWorker,
         )
     }
 
@@ -114,5 +116,4 @@ class MainActivity : AppCompatActivity() {
         builder.create()
         builder.show()
     }
-
 }

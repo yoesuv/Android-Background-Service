@@ -1,15 +1,14 @@
 [versions]
-agp = "8.7.2"
-kotlin = "1.9.24"
-coreKtx = "1.13.1"
+agp = "9.2.1"
+coreKtx = "1.16.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
 appcompat = "1.7.0"
-material = "1.12.0"
-activity = "1.9.3"
-constraintlayout = "2.1.4"
-workKtx = "2.9.1"
+material = "1.14.0"
+activity = "1.10.0"
+constraintlayout = "2.2.1"
+workKtx = "2.11.2"
 preferencesKtx = "1.2.1"
 
 [libraries]
@@ -26,5 +25,4 @@ androidx-preferences = { group = "androidx.preference", name = "preference-ktx",
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
-jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
