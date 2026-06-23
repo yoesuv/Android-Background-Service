@@ -1,31 +1,53 @@
 package com.yoesuv.androidbackgroundservice.prefs
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.ContextWrapper
+import android.content.SharedPreferences
 import android.text.TextUtils
 import kotlin.RuntimeException
 
 object PrefsHelper {
-
     private const val DEFAULT_SUFFIX = "_preferences"
     private lateinit var mPrefs: SharedPreferences
 
-    private fun initPrefs(context: Context, prefsName: String) {
+    private fun initPrefs(
+        context: Context,
+        prefsName: String,
+    ) {
         mPrefs = context.getSharedPreferences(prefsName, ContextWrapper.MODE_PRIVATE)
     }
 
     // ===== begin preferences int =====
-    fun getInt(key: String?, defValue: Int): Int {
-        return mPrefs.getInt(key, defValue)
-    }
+    fun getInt(
+        key: String?,
+        defValue: Int,
+    ): Int = mPrefs.getInt(key, defValue)
 
-    fun putInt(key: String?, value: Int) {
+    fun putInt(
+        key: String?,
+        value: Int,
+    ) {
         val editor = mPrefs.edit()
         editor.putInt(key, value)
         editor.apply()
     }
     // ===== end preferences int =====
+
+    // ===== begin preferences boolean =====
+    fun getBoolean(
+        key: String?,
+        defValue: Boolean,
+    ): Boolean = mPrefs.getBoolean(key, defValue)
+
+    fun putBoolean(
+        key: String?,
+        value: Boolean,
+    ) {
+        val editor = mPrefs.edit()
+        editor.putBoolean(key, value)
+        editor.apply()
+    }
+    // ===== end preferences boolean =====
 
     fun remove(key: String?) {
         val editor = mPrefs.edit()

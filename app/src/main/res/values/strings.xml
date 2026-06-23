@@ -15,4 +15,9 @@
     <string name="push_notification_background_service_title">Background Service</string>
     <string name="push_notification_background_service_text">This is notification from background service</string>
     <string name="push_notification_alarm_manager">This is Notification from Alarm Manager</string>
+
+    <!-- Auto-start / battery reminder cards -->
+    <string name="settings">Settings</string>
+    <string name="enable_auto_start_permission">Enable auto start permission so alarms can fire in background</string>
+    <string name="disable_battery_optimization">Disable battery optimization to prevent the alarm being deferred in Doze</string>
 </resources>

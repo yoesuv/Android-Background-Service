@@ -13,22 +13,14 @@ fun logDebug(message: String?) {
     }
 }
 
-fun Int?.addZero(): String {
-    if (this == null) {
-        return "00"
+fun Int.addZero(): String =
+    if (this < 10) {
+        "0$this"
     } else {
-        if (this < 10) {
-            return "0$this"
-        } else {
-            return "$this"
-        }
+        "$this"
     }
-}
 
-fun isTiramisu(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-}
+fun isTiramisu(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 
-fun Context.checkPermission(permission: String): Boolean {
-    return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
-}
+fun Context.checkPermission(permission: String): Boolean =
+    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED

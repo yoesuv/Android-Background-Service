@@ -4,4 +4,15 @@
     <dimen name="button_text_size">18sp</dimen>
     <dimen name="button_padding_vertical">10dp</dimen>
     <dimen name="text_alarm_size">30sp</dimen>
+
+    <!-- Auto-start / battery reminder cards -->
+    <dimen name="reminder_card_corner_radius">8dp</dimen>
+    <dimen name="reminder_card_elevation">2dp</dimen>
+    <dimen name="reminder_card_margin_vertical">8dp</dimen>
+    <dimen name="reminder_card_padding_horizontal">12dp</dimen>
+    <dimen name="reminder_card_padding_vertical">10dp</dimen>
+    <dimen name="reminder_text_size">13sp</dimen>
+    <dimen name="reminder_button_text_size">12sp</dimen>
+    <dimen name="reminder_button_padding_horizontal">14dp</dimen>
+    <dimen name="reminder_button_corner_radius">8dp</dimen>
 </resources>
