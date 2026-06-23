@@ -39,6 +39,14 @@ object AlarmHelper {
             }
         val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, flags)
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        // Use an exact alarm so it fires at the chosen time even in Doze.
+        // Fall back to an inexact (but Doze-friendly) alarm if the exact-alarm
+        // permission isn't granted on API 31+.
+        val triggerAt = calendar.timeInMillis
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
+        } else {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
+        }
     }
 }

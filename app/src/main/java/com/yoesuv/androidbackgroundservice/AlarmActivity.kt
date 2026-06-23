@@ -4,13 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.yoesuv.androidbackgroundservice.data.PERM_NOTIFICATION
 import com.yoesuv.androidbackgroundservice.databinding.ActivityAlarmBinding
 import com.yoesuv.androidbackgroundservice.prefs.PrefAlarm
 import com.yoesuv.androidbackgroundservice.utils.AlarmHelper
+import com.yoesuv.androidbackgroundservice.utils.AutoStartHelper
+import com.yoesuv.androidbackgroundservice.utils.PermissionHelper
 import com.yoesuv.androidbackgroundservice.utils.addZero
+import com.yoesuv.androidbackgroundservice.utils.checkPermission
+import com.yoesuv.androidbackgroundservice.utils.isTiramisu
 import java.util.Calendar
 import java.util.Locale
 
@@ -23,6 +30,15 @@ class AlarmActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAlarmBinding
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                pendingTime?.let { setupAlarm(it.first, it.second) }
+            }
+        }
+
+    private var pendingTime: Pair<Int, Int>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAlarmBinding.inflate(layoutInflater)
@@ -30,7 +46,13 @@ class AlarmActivity : AppCompatActivity() {
 
         setupToolbar()
         setupButton()
+        setupReminderButtons()
         showDataAlarm()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateReminderCards()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -51,6 +73,39 @@ class AlarmActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupReminderButtons() {
+        binding.btnAutoStartSettings.setOnClickListener {
+            AutoStartHelper.openAutoStartSettings(this)
+        }
+        binding.btnBatterySettings.setOnClickListener {
+            PermissionHelper.requestIgnoreBatteryOptimizations(this)
+        }
+    }
+
+    /**
+     * Toggle the two reminder cards based on the current device/OEM state.
+     * Called from [onResume] so the cards update after the user returns from
+     * the OEM settings screen.
+     */
+    private fun updateReminderCards() {
+        // Auto-start card: only meaningful on OEMs that ship an autostart
+        // manager (Vivo, Oppo, Xiaomi, Huawei, ...). Stock Android has none.
+        val showAutoStart = AutoStartHelper.isAutoStartSupported()
+        binding.cardAutoStartPermission.visibility =
+            if (showAutoStart) View.VISIBLE else View.GONE
+
+        // Battery-optimization card: visible until the user grants the
+        // "ignore battery optimizations" exemption.
+        val showBattery = !PermissionHelper.isIgnoringBatteryOptimizations(this)
+        binding.cardBatteryOptimization.visibility =
+            if (showBattery) View.VISIBLE else View.GONE
+
+        // Hide the containing LinearLayout when there are no cards to show,
+        // so it doesn't keep any bottom spacing.
+        binding.layoutReminders.visibility =
+            if (showAutoStart || showBattery) View.VISIBLE else View.GONE
+    }
+
     private fun showTimePicker() {
         val calendar = Calendar.getInstance(Locale.getDefault())
         val picker =
@@ -66,7 +121,14 @@ class AlarmActivity : AppCompatActivity() {
         picker.addOnPositiveButtonClickListener {
             val newHour = picker.hour
             val newMinute = picker.minute
-            setupAlarm(newHour, newMinute)
+            if (isTiramisu() && !checkPermission(PERM_NOTIFICATION)) {
+                // Defer scheduling until the user grants POST_NOTIFICATIONS,
+                // otherwise the later notify() call will silently do nothing.
+                pendingTime = newHour to newMinute
+                requestPermissionLauncher.launch(PERM_NOTIFICATION)
+            } else {
+                setupAlarm(newHour, newMinute)
+            }
         }
     }
 

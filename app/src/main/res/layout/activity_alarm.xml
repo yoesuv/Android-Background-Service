@@ -65,6 +65,103 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutReminders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAutoStartPermission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/button_margin"
+                android:layout_marginBottom="@dimen/reminder_card_margin_vertical"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/reminder_card_corner_radius"
+                app:cardElevation="@dimen/reminder_card_elevation"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/reminder_card_padding_horizontal"
+                    android:paddingVertical="@dimen/reminder_card_padding_vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/enable_auto_start_permission"
+                        android:textSize="@dimen/reminder_text_size" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAutoStartSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/reminder_card_padding_horizontal"
+                        android:minWidth="0dp"
+                        android:paddingHorizontal="@dimen/reminder_button_padding_horizontal"
+                        android:text="@string/settings"
+                        android:textSize="@dimen/reminder_button_text_size"
+                        app:cornerRadius="@dimen/reminder_button_corner_radius" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBatteryOptimization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/button_margin"
+                android:layout_marginBottom="@dimen/button_margin"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/reminder_card_corner_radius"
+                app:cardElevation="@dimen/reminder_card_elevation"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/reminder_card_padding_horizontal"
+                    android:paddingVertical="@dimen/reminder_card_padding_vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/disable_battery_optimization"
+                        android:textSize="@dimen/reminder_text_size" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBatterySettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/reminder_card_padding_horizontal"
+                        android:minWidth="0dp"
+                        android:paddingHorizontal="@dimen/reminder_button_padding_horizontal"
+                        android:text="@string/settings"
+                        android:textSize="@dimen/reminder_button_text_size"
+                        app:cornerRadius="@dimen/reminder_button_corner_radius" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
